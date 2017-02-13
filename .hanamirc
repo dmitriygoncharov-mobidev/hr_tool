@@ -1,0 +1,4 @@
+project=hr_tool
+architecture=container
+test=minitest
+template=erb
