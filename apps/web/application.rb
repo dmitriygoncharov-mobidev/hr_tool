@@ -74,11 +74,19 @@ module Web
       #
       # See: http://www.rubydoc.info/gems/rack/Rack/Session/Cookie
       #
-      # sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
+      sessions :cookie, secret: ENV['WEB_SESSIONS_SECRET']
 
       # Configure Rack middleware for this application
       #
       # middleware.use Rack::Protection
+
+      middleware.use Warden::Manager do |manager|
+        manager.failure_app = Web::Controllers::Session::Failure.new
+      end
+
+      middleware.use OmniAuth::Builder do
+        provider :google, ENV["GOOGLE_CLIENT_KEY"], ENV["GOOGLE_CLIENT_SECRET"]
+      end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
       # Argument: A symbol representation of a mime type, default to :html
@@ -253,6 +261,7 @@ module Web
       controller.prepare do
         # include MyAuthentication # included in all the actions
         # before :authenticate!    # run an authentication before callback
+        include Web::Authentication
       end
 
       # Configure the code that will yield each time Web::View is included
