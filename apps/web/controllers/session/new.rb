@@ -7,7 +7,7 @@ module Web::Controllers::Session
     end
 
     def call(params)
-      user = UserRepository.auth!(auth_hash)
+      user = UserRepository.new.auth!(auth_hash)
       warden.set_user user
       redirect_to "/"
     end

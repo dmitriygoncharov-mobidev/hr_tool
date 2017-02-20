@@ -5,7 +5,7 @@ gem "rake"
 gem "hanami",       "~> 0.9"
 gem "hanami-model", "~> 0.7"
 gem "pg"
-gem "omniauth-google"
+gem "omniauth-google-oauth2"
 gem "warden"
 
 group :development do

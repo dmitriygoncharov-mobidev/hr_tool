@@ -85,7 +85,7 @@ module Web
       end
 
       middleware.use OmniAuth::Builder do
-        provider :google, ENV["GOOGLE_CLIENT_KEY"], ENV["GOOGLE_CLIENT_SECRET"]
+        provider :google_oauth2, ENV["GOOGLE_CLIENT_KEY"], ENV["GOOGLE_CLIENT_SECRET"]
       end
 
       # Default format for the requests that don't specify an HTTP_ACCEPT header
